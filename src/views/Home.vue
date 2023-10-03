@@ -1,5 +1,232 @@
 <template>
-  <div id="home">
-    <h1>👋Hello world🌎</h1>
+  <div class="home-page">
+
+    <div class="hero" id="hero">
+
+      <div class="hero__title">
+        <h1>участвуй в акции и выигрывай призы!</h1>
+
+        <button class="button button--blue">участвовать</button>
+      </div>
+
+
+      <div class="promo promo--bottle">
+        <img src="../assets/img/bottle.png" />
+      </div>
+
+      <div class="promo promo--prizes">
+        <img src="../assets/img/super.png" />
+      </div>
+
+      <div class="promo promo--main">
+        <img src="../assets/img/main_price.svg" />
+      </div>
+
+    </div>
+
+
+    <div class="prizes">
+      <div class="wrapper">
+
+        <h2 class="prizes__title h2">Выигрывай призы</h2>
+
+        <h3 class="h3">Гарантированный приз</h3>
+
+        <div class="two-column">
+          <div class="two-column__img">
+            <img src="../assets/img/subs.png" width="295" height="214" alt="subscribes icon" />
+          </div>
+          
+          <div class="two-column__text">
+            <p>Зарегистрируйте один чек и получите подписку Яндекс Плюс на 1 год</p>
+          </div>
+        </div>
+
+        <h3 class="h3">Ежемесячный приз</h3>
+
+        <div class="cards">
+
+          <div class="cards__item">
+            <img src="../assets/img/scooter.png" alt="scooter" />
+            <p>Электросамокат</p>
+          </div>
+
+          <div class="cards__item">
+            <img src="../assets/img/alisa.png" alt="alisa" />
+            <p>Колонка</p>
+          </div>
+
+          <div class="cards__item">
+            <img src="../assets/img/watch.png" alt="watch" />
+            <p>Смарт часы</p>
+          </div>
+
+        </div>
+
+        <button class="button button--blue button--check">Загрузить чек</button>
+
+      </div>
+    </div>
+
   </div>
 </template>
+
+
+<script>
+
+export default {
+  name: "homePage",
+}
+</script>
+
+
+<style lang="scss" scoped>
+@import "../styles/base.scss";
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
+
+.home-page {
+  .hero {
+    width: 100%;
+    height: 100vh;
+    background-color: #B1C728;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+
+    &__title {
+      margin-top: 6.8vw;
+      max-width: 23vw;
+      text-align: center;
+      color: $color-white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .button {
+      width: 29.6rem;
+      height: 8rem;
+      font-size: 3rem;
+      font-weight: bold;
+      margin-top: 2.7rem;
+    }
+
+    .promo  {
+      position: absolute;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      &--bottle {
+        height: 42vw;
+        width: auto;
+        bottom: 0;
+        left: 8vw;
+      }
+
+      &--prizes {
+        width: 29vw;
+        height: auto;
+        bottom: 6.3rem;
+        right: 8vw;
+      }
+
+      &--main {
+        width: 19vw;
+        height: auto;
+        top: 12.5rem;
+        right: 14vw;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      opacity: 0;
+    }
+  }
+
+  .prizes {
+    padding-top: 10rem;
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .h3 {
+        margin: 4rem 0 3rem 0;
+      }
+    }
+
+    .two-column {
+      width: 100%;
+      background-color: #F6F6F6;
+      border-radius: 3.6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 4.2rem 0 4.4rem 0;
+
+      &__text {
+        max-width: 28.3rem;
+        margin-left: 13.3rem;
+      }
+
+    }
+
+    .cards {
+      display: flex;
+      gap: 4rem;
+      width: 100%;
+      margin-bottom: 9.6rem;
+
+      &__item {
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        &::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 30rem;
+          border-radius: 3.6rem;
+          background-color: $color-yellow;
+          position: absolute;
+          bottom: -4.8rem;
+          z-index: -1;
+        }
+
+        img {
+          height: 28.3rem;
+          width: auto;
+          object-fit: contain;
+          margin-bottom: 4.3rem;
+        }
+      }
+    }
+
+    .button--check {
+      width: 30rem;
+      height: 6rem;
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 8rem;
+    }
+
+    p {
+      font-size: 2.4rem;
+      line-height: 3.2rem;      
+    }
+  }
+}
+</style>

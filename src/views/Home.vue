@@ -6,7 +6,7 @@
       <div class="hero__title">
         <h1>участвуй в акции и выигрывай призы!</h1>
 
-        <button class="button button--blue">участвовать</button>
+        <button class="button button--blue" @click="showModal">участвовать</button>
       </div>
 
 
@@ -63,27 +63,129 @@
 
         </div>
 
-        <button class="button button--blue button--check">Загрузить чек</button>
-
+        <button class="button button--blue button--check" @click="showModal">Загрузить чек</button>
+        
       </div>
     </div>
+
+    <Modal v-show="isModalVisible" @close="closeModal">
+      <template v-slot:body>
+
+        <form id="regForm" name="regForm" class="form" @submit.prevent="submitForm">
+
+          <span class="modal__title">регистрация</span>
+
+          <div class="form__fieldset">
+
+              <label for="name" class="label">ФИО</label>
+              <input type="text" v-model="name" name="name" id="name" placeholder="Николаев Дмитрий Сергеевич" required />
+              
+
+              <label for="email" class="label">E-mail</label>
+              <input type="email" v-model="email" name="email" id="email" placeholder="username@gmail.com" required />
+              
+
+              <label for="phone" class="label">Телефон</label>
+              <input type="tel" v-model="phone" name="phone" id="phone" placeholder="+7" required />
+              
+              
+              <div class="agreement">
+                <input type="checkbox" v-model="agree" id="agree" name="agree" class="checkbox" required>
+                <span class="checkmark"></span>
+                <label for="agree" class="label">Я согласен с <a href="#">правилами акции</a>, <a href="#">пользовательским соглашением</a> и с <a href="#">положением о конфиденциальности</a></label>         
+              </div>
+
+              <button type="submit" class="button button--blue button--submit">Зарегистрироваться</button>
+
+              <p>Есть аккаунт? <span>Авторизуйся</span></p>
+          </div>
+        </form>
+
+      </template>
+    </Modal>
+
+
+    <Modal v-show="isRegFinish" @close="closeModal">
+      <template v-slot:body>
+
+        <div class="modal__icon">
+          <img src="../assets/img/check-circle.svg"  />
+        </div>
+       
+        <span class="modal__title">Ваша регистрация прошла успешно!</span>
+
+        <p>Добро пожаловать, ФИО, указанное при регистрации!</p>
+
+        <button class="button button--blue" @click="closeModal">Закрыть окно</button>
+
+      </template>
+    </Modal>
 
   </div>
 </template>
 
 
 <script>
+import axios from 'axios'
+import Modal from '../components/Modal.vue'
 
 export default {
   name: "homePage",
+  components: { Modal },
+  data() {
+    return {
+      isModalVisible: false,
+      isRegFinish: false,
+      success: false,
+      errors: [],
+      name: null,
+      email: '',
+      phone: '',
+      agree: false
+    }
+  },
+  methods: {
+    showModal() {
+      this.isModalVisible = true;
+    },
+
+    closeModal() {
+      this.isModalVisible = false;
+    },
+
+    async submitForm() {
+      console.log(this.name, this.email, this.agree)
+
+      await axios.post('https://promo-test.emlsdr.ru/backend/api/registerByEmail',
+      { login: this.email, 
+        name: this.name, 
+        phone: this.phone, 
+        rules1: this.agree
+      }).then(response => {
+          console.log(response);
+
+          if (response.status == 201) {
+            alert('success')
+          } else {
+            alert('fail')
+          }
+      })
+      // this.email = '',
+      // this.name = '',
+      // this.phone = '',
+      // this.agree = ''
+    }
+  }
 }
 </script>
 
 
+
+
 <style lang="scss" scoped>
+@import "../styles/variables.scss";
 @import "../styles/base.scss";
 @import "../styles/mixins.scss";
-@import "../styles/variables.scss";
 
 .home-page {
   .hero {
@@ -184,6 +286,10 @@ export default {
       width: 100%;
       margin-bottom: 9.6rem;
 
+      @include mobile {
+        flex-direction: column;      
+      }
+
       &__item {
         flex-basis: auto;
         flex-grow: 1;
@@ -211,6 +317,12 @@ export default {
           width: auto;
           object-fit: contain;
           margin-bottom: 4.3rem;
+
+         
+
+          @include tablet {
+            height: 26vw;
+          }
         }
       }
     }
@@ -225,8 +337,10 @@ export default {
 
     p {
       font-size: 2.4rem;
-      line-height: 3.2rem;      
+      line-height: 3.2rem;
+      margin: 0;    
     }
   }
+
 }
 </style>

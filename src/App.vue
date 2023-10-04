@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <Header></Header>
+
+    <Header @showModal="showModal"></Header>
     <router-view />
+    <Footer></Footer>
+
   </div>
 </template>
 
@@ -10,13 +13,25 @@
 <script>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import Modal from "./components/Modal.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    Footer
+    Footer,
+    Modal  
   },
+  data() {
+    return {
+      isModalVisible: false
+    }
+  },
+  methods: {
+    showModal() {
+      this.isModalVisible = true;
+    },
+  }
 }
 
 </script>

@@ -7,14 +7,16 @@
             </div>
 
             <nav class="nav">
-                <ul class="menu">
+
+                <Menu></Menu>
+                <!-- <ul class="menu">
                     <li><a href ="/">главная</a></li>
                     <li><a href ="#">призы</a></li>
                     <li><a href ="#">как участвовать</a></li>
                     <li><a href ="#">вопросы и ответы</a></li>
-                </ul>
+                </ul> -->
 
-                <button class="button button--white button--reg">Личный кабинет</button>
+                <button class="button button--white button--reg" @click="showModal">Личный кабинет</button>
             </nav>
         </div>
 
@@ -22,16 +24,26 @@
 </template>
 
 <script>
+import Menu from './Menu.vue'
 
 export default {
-    name: "Header"
+    name: "Header",
+    components: {
+        Menu
+    },
+    methods: {
+        showModal() {
+            this.$emit('showModal');
+        }
+    },
+
 }
 </script>
 
 <style lang="scss">
-@import "../styles/base.scss";
 @import "../styles/mixins.scss";
 @import "../styles/variables.scss";
+@import "../styles/base.scss";
 
 .header {
     position: absolute;
@@ -54,22 +66,22 @@ export default {
 
     }
 
-    .menu {
-        display: flex;
-        align-items: center;
+    // .menu {
+    //     display: flex;
+    //     align-items: center;
 
-        li {
-            margin-right: 4rem;
-            list-style: none;
+    //     li {
+    //         margin-right: 4rem;
+    //         list-style: none;
 
-            a {
-                font-size: 1.8rem;
-                color: $color-black;
-                text-transform: uppercase;
-                font-weight: 700;
-            }
-        }
-    }
+    //         a {
+    //             font-size: 1.8rem;
+    //             color: $color-black;
+    //             text-transform: uppercase;
+    //             font-weight: 700;
+    //         }
+    //     }
+    // }
 
     .button--reg {
         width: 21.2rem;

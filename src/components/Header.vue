@@ -9,15 +9,16 @@
             <nav class="nav">
 
                 <Menu></Menu>
-                <!-- <ul class="menu">
-                    <li><a href ="/">главная</a></li>
-                    <li><a href ="#">призы</a></li>
-                    <li><a href ="#">как участвовать</a></li>
-                    <li><a href ="#">вопросы и ответы</a></li>
-                </ul> -->
 
                 <button class="button button--white button--reg" @click="showModal">Личный кабинет</button>
             </nav>
+
+            
+
+            <button class="button button--mobile" @click="mobileMenuToggle">
+                <img src="../assets/img/burger.svg" alt="mobile menu button" />
+            </button>  
+
         </div>
 
     </header>
@@ -34,6 +35,9 @@ export default {
     methods: {
         showModal() {
             this.$emit('showModal');
+        },
+        mobileMenuToggle() {
+            this.$emit('showMobileMenu')
         }
     },
 
@@ -64,24 +68,21 @@ export default {
     .nav {
         display: flex;
 
+        @include mobile {
+            flex-direction: column;
+            background-color: $color-white;
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            width: 90vw;
+            height: 100vh;
+            z-index: 20;
+            padding: 0 2rem;
+            padding-top: 7rem;
+            align-items: flex-start;
+            
+        }
     }
-
-    // .menu {
-    //     display: flex;
-    //     align-items: center;
-
-    //     li {
-    //         margin-right: 4rem;
-    //         list-style: none;
-
-    //         a {
-    //             font-size: 1.8rem;
-    //             color: $color-black;
-    //             text-transform: uppercase;
-    //             font-weight: 700;
-    //         }
-    //     }
-    // }
 
     .button--reg {
         width: 21.2rem;
@@ -89,6 +90,11 @@ export default {
         font-size: 1.8rem;
         line-height: 2rem;
         font-weight: 700;
+
+        @include mobile {
+            background-color: $color-blue;
+            color: $color-white;
+        }
     }
 }
 

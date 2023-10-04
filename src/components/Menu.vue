@@ -6,6 +6,8 @@
             <li><a href ="#">как участвовать</a></li>
             <li><a href ="#">вопросы и ответы</a></li>
         </ul>
+
+        <button type="button" class="button button--close" @click="closeMenu"></button>
     </div>
 </template>
 
@@ -26,9 +28,19 @@ export default {
     display: flex;
     align-items: center;
 
+    @include mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+    }
+
     li {
         margin-right: 4rem;
         list-style: none;
+
+        @include mobile {
+            margin-bottom: 4rem;
+        }
 
         a {
             font-size: 1.8rem;

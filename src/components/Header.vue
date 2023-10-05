@@ -6,16 +6,20 @@
                 <img src="../assets/img/logo.svg">
             </div>
 
-            <nav class="nav">
+            <nav class="nav" :class="isMobileMenu ? 'mobile' : ''">
 
-                <Menu></Menu>
+                <Menu @closeMenu="closeMenu"></Menu>
 
                 <button class="button button--white button--reg" @click="showModal">Личный кабинет</button>
+
+                <button type="button" 
+                        class="button button--close" 
+                        @click="closeMenu"
+                        v-show="isMobileMenu">
+                </button>
             </nav>
 
-            
-
-            <button class="button button--mobile" @click="mobileMenuToggle">
+            <button class="button button--mobile" @click="showMobileMenu">
                 <img src="../assets/img/burger.svg" alt="mobile menu button" />
             </button>  
 
@@ -26,18 +30,27 @@
 
 <script>
 import Menu from './Menu.vue'
+import { EventBus } from '../event-bus.js';
 
 export default {
     name: "Header",
     components: {
         Menu
     },
+    data() {
+        return {
+            isMobileMenu: false,
+        };
+    },
     methods: {
         showModal() {
             this.$emit('showModal');
         },
-        mobileMenuToggle() {
-            this.$emit('showMobileMenu')
+        showMobileMenu() {
+            EventBus.$emit('showMobileMenu', this.isMobileMenu = true)
+        },
+        closeMenu() {
+            EventBus.$emit('showMobileMenu', this.isMobileMenu = false)
         }
     },
 
@@ -55,10 +68,18 @@ export default {
     padding-top: 3rem;
     z-index: 2;
 
+    @include mobile {
+        padding-top: 2rem;
+    }
+
     .wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @include mobile {
+            align-items: flex-start;
+        }
     }
 
     .logo {
@@ -69,10 +90,18 @@ export default {
         display: flex;
 
         @include mobile {
+            display: none;
+        }
+        @include tablet {
+            display: none;
+        }
+
+        &.mobile {
+            display: flex;
             flex-direction: column;
             background-color: $color-white;
             position: absolute;
-            top: -3rem;
+            top: -2rem;
             right: 0;
             width: 90vw;
             height: 100vh;
@@ -80,7 +109,10 @@ export default {
             padding: 0 2rem;
             padding-top: 7rem;
             align-items: flex-start;
-            
+
+            @include tablet {
+                top: -3rem;
+            }
         }
     }
 
@@ -94,7 +126,25 @@ export default {
         @include mobile {
             background-color: $color-blue;
             color: $color-white;
+            width: 100%;
         }
+        @include tablet {
+            background-color: $color-blue;
+            color: $color-white;
+            width: 50%;
+        }
+    }
+
+    .button--close {
+        display: block;
+        position: absolute;
+        width: 3rem;
+        height: 3rem;
+        background-image: url('../assets/img/close.svg');
+        background-repeat: no-repeat;
+        top: 2rem;
+        right: 2rem;
+        background-size: contain;
     }
 }
 

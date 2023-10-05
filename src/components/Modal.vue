@@ -49,6 +49,10 @@ export default {
     justify-content: center;
     align-items: center;
     z-index: 10;
+
+    @include mobile {
+        align-items: end;
+    }
 }
 
 .modal {
@@ -63,6 +67,12 @@ export default {
     padding: 4rem 3.5rem;
     border-radius: 36px;
     position: relative;
+
+    @include mobile {
+        width: 100%;
+        padding: 4rem 2rem;
+        border-radius: 14px 14px 0 0;
+    }
    
     &__body {
         position: relative;
@@ -75,6 +85,11 @@ export default {
         text-transform: uppercase;
         margin-bottom: 2rem;
         text-align: center;
+
+        @include mobile {
+            font-size: 2.8rem;
+            line-height: 1;
+        }
     }
 
     &__icon {
@@ -101,12 +116,21 @@ export default {
         justify-content: center;
         align-items: center;
 
+        @include mobile {
+            width: 100%;
+        }
+
         &__fieldset {
             display: flex;
             flex-direction: column;
             
             .label {
                 margin-bottom: 1rem;
+
+                @include mobile {
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
             }
 
             input {
@@ -121,6 +145,12 @@ export default {
                 font-size: 1.8rem;
                 color: $color-black;
                 margin-bottom: 1.4rem;
+
+                @include mobile {
+                    height: 4.8rem;
+                    border-radius: .8rem;
+                    padding: 1.5rem .7rem 1.5rem 1.2rem;
+                }
 
                 &::placeholder {
                     color: #444444;
@@ -164,14 +194,21 @@ export default {
                 .label {
                     max-width: 32.2rem;
 
+                    @include mobile {
+                        max-width: 31rem;
+                    }
+
                     a {
                         color: $color-blue;
                         text-decoration: underline;
                     }
+
+                    @include mobile {
+                        font-size: 1.6rem;
+                        font-weight: 400;
+                    }
                 }
             }
-
-           
         }
     }
 
@@ -194,10 +231,21 @@ export default {
             background-image: url('../assets/img/close.svg');
             background-repeat: no-repeat;
             background-size: 100% 100%;
+
+            @include mobile {
+                top: 0;
+                right: 1.5rem;
+            }
         }
 
         &--submit {
             margin: 2rem 0;
+
+            @include mobile {
+                height: 4.8rem;
+                border-radius: .8rem;
+                font-size: 1.8rem;
+            }
         }
     }
 
@@ -206,6 +254,12 @@ export default {
         line-height: 3.2rem;
         text-align: center;
         margin: 0;
+
+        @include mobile {
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
         span {
             color: $color-blue;
             text-decoration: underline;

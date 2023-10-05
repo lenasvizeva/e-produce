@@ -1,18 +1,17 @@
 <template>
     <div class="menu">
-        <ul >
+        <ul>
             <li><a href ="/">главная</a></li>
             <li><a href ="#">призы</a></li>
             <li><a href ="#">как участвовать</a></li>
             <li><a href ="#">вопросы и ответы</a></li>
         </ul>
-
-        <button type="button" class="button button--close" @click="closeMenu"></button>
     </div>
 </template>
 
 
 <script>
+
 export default {
     name: "Menu"
 }
@@ -34,11 +33,20 @@ export default {
         padding: 0;
     }
 
+    @include tablet {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+    }
+
     li {
         margin-right: 4rem;
         list-style: none;
 
         @include mobile {
+            margin-bottom: 4rem;
+        }
+        @include tablet {
             margin-bottom: 4rem;
         }
 
@@ -50,4 +58,5 @@ export default {
         }
     }
 }
+
 </style>

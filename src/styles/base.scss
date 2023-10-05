@@ -101,6 +101,12 @@ h3, .h3 {
 
         @include mobile {
             display: block;
+            margin-top: .5rem;
+        }
+        @include tablet {
+            display: block;
+            margin-bottom: 1.5rem;
         }
     }
+    
 }

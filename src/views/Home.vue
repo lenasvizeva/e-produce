@@ -116,7 +116,7 @@
 
         <p>Добро пожаловать, ФИО, указанное при регистрации!</p>
 
-        <button class="button button--blue" @click="closeModal">Закрыть окно</button>
+        <button class="button button--blue button--submit" @click="closeModal">Закрыть окно</button>
 
       </template>
     </Modal>
@@ -197,6 +197,10 @@ export default {
     flex-direction: column;
     position: relative;
 
+    @include tablet {
+      max-height: 100vw;
+    }
+
     &__title {
       margin-top: 6.8vw;
       max-width: 23vw;
@@ -206,6 +210,34 @@ export default {
       flex-direction: column;
       align-items: center;
       z-index: 1;
+
+      @include mobile {
+        width: 100%;
+        margin: auto;
+      }
+      @include tablet {
+        margin-top: 11rem;
+        max-width: 30rem;
+        
+      }
+
+      h1 {
+        font-size: 3.5vw;
+        line-height: 4.5vw;
+
+        @include mobile {
+          font-size: 2.8rem;
+          line-height: 110%;
+          width: 79vw;
+          margin-top: 28vw;
+          margin-bottom: 1rem;
+        }
+        @include tablet {
+          font-size: 4rem;
+          line-height: 5rem;
+
+        }
+      }
     }
 
     .button {
@@ -214,6 +246,17 @@ export default {
       font-size: 3rem;
       font-weight: bold;
       margin-top: 2.7rem;
+
+      @include mobile {
+        width: 90vw;
+        height: 5.2rem;
+        margin: 0;
+        font-size: 2rem;
+      }
+      @include tablet {
+        height: 7rem;
+        font-size: 2.7rem;
+      }
     }
 
     .promo  {
@@ -230,6 +273,17 @@ export default {
         width: auto;
         bottom: 0;
         left: 8vw;
+
+        @include mobile {
+          height: 30%;
+          left: 20vw;
+          top: auto;
+        }
+
+        @include tablet {
+          height: 45vh;
+          left: -15rem;
+        }
       }
 
       &--prizes {
@@ -237,6 +291,20 @@ export default {
         height: auto;
         bottom: 6.3rem;
         right: 8vw;
+
+        @include mobile {
+          width: 33vh;
+          top: 22vw;
+          left: 5vw;
+          bottom: auto;
+          right: auto;
+        }
+
+        @include tablet {
+          width: 37vw;
+          bottom: 5rem;
+          right: 5vw;      
+        }
       }
 
       &--main {
@@ -244,6 +312,19 @@ export default {
         height: auto;
         top: 12.5rem;
         right: 14vw;
+
+        @include mobile {
+          width: 17rem;
+          height: auto;
+          top: 15vh;
+          right: 2rem;
+        }
+
+        @include tablet {
+          width: 25vw;
+          right: 5vw;
+          top: 20rem;
+        }
       }
     }
 
@@ -254,6 +335,10 @@ export default {
 
   .prizes {
     padding-top: 10rem;
+
+    @include mobile {
+      padding-top: 5rem;
+    }
     .wrapper {
       display: flex;
       flex-direction: column;
@@ -261,7 +346,20 @@ export default {
 
       .h3 {
         margin: 4rem 0 3rem 0;
+
+        @include mobile {
+          font-size: 2rem;
+          margin: 0;
+          margin-bottom: 1rem;
+          margin-top: 2rem;
+        }
       }
+    }
+
+    &__title {
+      font-size: 2.8rem;
+      line-height: 1;
+      margin: 0;
     }
 
     .two-column {
@@ -276,8 +374,34 @@ export default {
       &__text {
         max-width: 28.3rem;
         margin-left: 13.3rem;
+
+        @include mobile {
+          width: 46%;
+          margin-left: 2.4rem;
+        }
+
+        p {
+          @include mobile {
+            font-size: 1.6rem;
+            line-height: 120%;
+          }
+        }
       }
 
+      &__img {
+        
+        @include mobile {
+          width: 33%;
+        }
+
+        img {
+          @include mobile {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+          }
+        }
+      }
     }
 
     .cards {
@@ -287,7 +411,9 @@ export default {
       margin-bottom: 9.6rem;
 
       @include mobile {
-        flex-direction: column;      
+        flex-direction: column;  
+        gap: 3rem;
+        margin-bottom: 5rem;  
       }
 
       &__item {
@@ -300,6 +426,13 @@ export default {
         align-items: center;
         position: relative;
 
+        @include mobile {
+          width: 100%;
+          align-items: center;
+          flex-direction: row;
+          
+        }
+
         &::after {
           content: '';
           display: block;
@@ -310,6 +443,12 @@ export default {
           position: absolute;
           bottom: -4.8rem;
           z-index: -1;
+
+          @include mobile {
+            height: 11rem;
+            border-radius: 2rem;
+            bottom: -1.8rem;
+          }
         }
 
         img {
@@ -318,10 +457,22 @@ export default {
           object-fit: contain;
           margin-bottom: 4.3rem;
 
-         
+          @include mobile {
+            height: 33vw;
+            width: 11.5rem;
+            margin: 0 2.4rem;
+          }
 
           @include tablet {
             height: 26vw;
+          }
+        }
+
+        p {
+          @include mobile {
+            font-size: 1.6rem;
+            line-height: 1.8rem;
+            margin-top: 5rem;
           }
         }
       }
@@ -333,6 +484,13 @@ export default {
       font-size: 2.4rem;
       font-weight: 700;
       margin-bottom: 8rem;
+
+      @include mobile {
+        width: 100%;
+        height: 5.2rem;
+        margin-bottom: 5rem;
+        font-size: 2rem;
+      }
     }
 
     p {

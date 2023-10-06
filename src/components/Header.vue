@@ -40,11 +40,12 @@ export default {
     data() {
         return {
             isMobileMenu: false,
+            isModalOpen: false
         };
     },
     methods: {
         showModal() {
-            this.$emit('showModal');
+            EventBus.$emit('showModal', this.isModalOpen = true);
         },
         showMobileMenu() {
             EventBus.$emit('showMobileMenu', this.isMobileMenu = true)
@@ -89,6 +90,25 @@ export default {
     .nav {
         display: flex;
 
+        &::after {
+            content: '';
+            display: none;
+            background-image: url('../assets/img/leaf2.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 20.2rem;
+            height: 18.2rem;
+            position: absolute;
+            bottom: 9rem;
+            right: 0;
+            z-index: 20;
+            animation: fadeInScale .5s ease-in-out 1 both;
+
+            @include mobile {
+                display: block;
+            }
+        }
+
         @include mobile {
             display: none;
         }
@@ -113,6 +133,8 @@ export default {
             @include tablet {
                 top: -3rem;
             }
+
+            
         }
     }
 

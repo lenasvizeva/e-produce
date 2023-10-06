@@ -16,12 +16,6 @@
 
 export default {
     name: "Modal",
-    // data: {
-    //     errors: [],
-    //     name: '',
-    //     email: '',
-    //     phone: ''
-    // },
     methods: {
         close() {
             this.$emit('close');
@@ -125,7 +119,7 @@ export default {
             flex-direction: column;
             
             .label {
-                margin-bottom: 1rem;
+                margin-bottom: 1.4rem;
 
                 @include mobile {
                     font-size: 1.4rem;
@@ -144,8 +138,9 @@ export default {
                 align-items: center;
                 font-size: 1.8rem;
                 color: $color-black;
-                margin-bottom: 1.4rem;
+                margin-top: 1rem;
                 outline: none;
+                font-family: 'Circe', sans-serif;
 
                 @include mobile {
                     height: 4.8rem;
@@ -155,11 +150,27 @@ export default {
 
                 &::placeholder {
                     color: #444444;
+                    font-family: 'Circe', sans-serif;
                 }
+
+                &.invalid {
+                    border-color: #FF191F;
+                }
+            }
+
+            .error {
+                font-size: 1.4rem;
+                line-height: 1;
+                text-align: left;
+                font-weight: 700;
+                color: #FF191F;
+                margin-top: .6rem;
+                margin-bottom: 1rem;
             }
 
             .agreement {
                 display: flex;
+                flex-flow: wrap;
 
                 .checkbox {
                     width: 2.4rem;
@@ -194,7 +205,8 @@ export default {
 
                 .label {
                     max-width: 32.2rem;
-
+                    margin-bottom: 0;
+                    
                     @include mobile {
                         max-width: 31rem;
                     }

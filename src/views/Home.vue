@@ -1,6 +1,37 @@
 <template>
   <div class="home-page">
 
+    <!-- page header  -->
+    <header class="header">
+
+      <div class="wrapper">
+        <a href="#" class="logo">
+            <img src="../assets/img/logo.svg">
+        </a>
+
+        <nav class="nav" :class="isMobileMenu ? 'mobile' : ''">
+
+            <Menu @closeMenu="closeMenu"></Menu>
+
+            <button class="button button--white button--reg" @click="showModal">Личный кабинет</button>
+
+            <button type="button" 
+                    class="button button--close" 
+                    @click="closeMenu"
+                    v-show="isMobileMenu">
+            </button>
+        </nav>
+
+        <button class="button button--mobile" @click="showMobileMenu">
+            <img src="../assets/img/burger.svg" alt="mobile menu button" />
+        </button>  
+
+      </div>
+
+    </header>
+
+    <!-- page content -->
+
     <div class="hero" id="hero">
 
       <div class="hero__title">
@@ -68,32 +99,71 @@
       </div>
     </div>
 
+
+    <!-- modals -->
+
     <Modal v-show="isModalVisible" @close="closeModal">
       <template v-slot:body>
 
-        <form id="regForm" name="regForm" class="form" @submit.prevent="submitForm">
+        <form v-show="isModalVisible && !isRegFinish" id="regForm" name="regForm" class="form" @submit.prevent="submitForm" novalidate>
 
           <span class="modal__title">регистрация</span>
 
           <div class="form__fieldset">
 
-              <label for="name" class="label">ФИО</label>
-              <input type="text" v-model="name" name="name" id="name" placeholder="Николаев Дмитрий Сергеевич" required />
-              <p class="error">{{ errors.name[0] }}</p>
+              <label for="name" class="label">ФИО
+                <input type="text" 
+                       v-model="name" 
+                       name="name" 
+                       id="name" 
+                       :class="errors.name ? 'invalid' : ''" 
+                       placeholder="Николаев Дмитрий Сергеевич" 
+                       required />
 
-              <label for="email" class="label">E-mail</label>
-              <input type="email" v-model="email" name="email" id="email" placeholder="username@gmail.com" required />
-              
-
-              <label for="phone" class="label">Телефон</label>
-              <input type="tel" v-model="phone" name="phone" id="phone" placeholder="+7" required />
-              
+                <p class="error" v-for="err in errors.name" :key="err">{{ err }}</p>
+              </label>
+             
+              <label for="email" class="label">E-mail
+                <input type="email" 
+                       v-model="email" 
+                       name="email" 
+                       id="email"
+                       :class="errors.email ? 'invalid' : ''" 
+                       placeholder="username@gmail.com" 
+                       required />
+                
+                       <p class="error" v-for="err in errors.email" :key="err">{{ err }}</p>
+              </label>
+             
+              <label for="phone" class="label">Телефон
+                <input type="tel" 
+                       v-model="phone" 
+                       name="phone" 
+                       id="phone"
+                       :class="errors.phone ? 'invalid' : ''" 
+                       placeholder="+7" 
+                       required />
+                
+                       <p class="error" v-for="err in errors.phone" :key="err">{{ err }}</p>
+              </label>
               
               <div class="agreement">
-                <input type="checkbox" v-model="agree" id="agree" name="agree" class="checkbox" required>
+                <input type="checkbox" 
+                       v-model="agree" 
+                       id="agree" 
+                       name="agree" 
+                       class="checkbox" 
+                       :class="errors.agree ? 'invalid' : ''" 
+                       required>
+
                 <span class="checkmark"></span>
-                <label for="agree" class="label">Я согласен с <a href="#">правилами акции</a>, <a href="#">пользовательским соглашением</a> и с <a href="#">положением о конфиденциальности</a></label>         
+                <label for="agree" class="label">Я согласен с <a href="#">правилами акции</a>, 
+                                                              <a href="#">пользовательским соглашением</a> и с 
+                                                              <a href="#">положением о конфиденциальности</a></label>         
+                
+                <p class="error" v-for="err in errors.agree" :key="err">{{ err }}</p>
               </div>
+              
 
               <button type="submit" class="button button--blue button--submit">Зарегистрироваться</button>
 
@@ -114,7 +184,7 @@
        
         <span class="modal__title">Ваша регистрация прошла успешно!</span>
 
-        <p>Добро пожаловать, ФИО, указанное при регистрации!</p>
+        <p>Добро пожаловать, {{ name }}!</p>
 
         <button class="button button--blue button--submit" @click="closeModal">Закрыть окно</button>
 
@@ -128,12 +198,17 @@
 <script>
 import axios from 'axios'
 import Modal from '../components/Modal.vue'
+import Menu from '../components/Menu.vue'
 
 export default {
   name: "homePage",
-  components: { Modal },
+  components: { 
+    Modal, 
+    Menu 
+  },
   data() {
     return {
+      isMobileMenu: false,
       isModalVisible: false,
       isRegFinish: false,
       name: '',
@@ -142,47 +217,36 @@ export default {
       agree: false,
       result: false,
       errors: {
-        name: [],
-        email: [],
-        phone: [],
-        agree: []
+        name: '',
+        email: '',
+        phone: '',
+        agree: ''
       },
-
     }
   },
   methods: {
+    showMobileMenu() {
+      this.isMobileMenu = true
+    },
+    closeMenu() {
+      this.isMobileMenu = false
+    },
     showModal() {
       this.isModalVisible = true;
     },
-
     closeModal() {
-      this.isModalVisible = false;
+      this.isModalVisible = false
+      this.isRegFinish = false
+
+      this.email = '',
+      this.name = '',
+      this.phone = '',
+      this.agree = ''
     },
 
+    
     submitForm() {
       console.log(this.name, this.email, this.agree)
-
-    //   await axios.post('https://promo-test.emlsdr.ru/backend/api/registerByEmail', JSON.stringify({ 
-    //     login: this.email, 
-    //     name: this.name, 
-    //     phone: this.phone, 
-    //     rules1: this.agree
-    //   })).then(response => {
-    //       console.log(JSON.stringify(response.data));
-
-    //       // if (response.status == 201) {
-    //       //   alert('success')
-    //       // } else {
-    //       //   alert('fail')
-    //       // }
-    //   }).catch(er => {
-    //     console.log(JSON.stringify(response.data.error))
-    //   })
-    //   this.email = '',
-    //   this.name = '',
-    //   this.phone = '',
-    //   this.agree = ''
-    // }
 
       const url = 'https://promo-test.emlsdr.ru/backend/api/registerByEmail'
 
@@ -194,30 +258,32 @@ export default {
       }
       let options = {
         method: "POST",
-        headers: { "content-type": "application/x-www-form-urlencoded" },
-        data: JSON.stringify(data),
+        headers: { "content-type": "application/x-www-form-urlencoded", "accept": "application/json"},
+        data: data,
         url
       }
       axios(options)
         .then(res => {
-          console.log("yeh we have", res);
+          
+          if (res.data.result) {
+            this.isRegFinish = true
+          } 
 
-          // this.errors = res.data.error
-          console.log(res.data.error.name[0])
+          console.log(res);
+          
+          localStorage.setItem('username', JSON.stringify(res.data))
 
-          this.errors.name.push(res.data.error.name[0])
+          let { login, name, phone, rules1 } = res.data.error
 
-          console.log(this.errors.name)
+          this.errors.email = login
+          this.errors.name = name
+          this.errors.phone = phone
+          this.errors.agree = rules1
 
-          // if (res.status == 201) {
-          //   alert('success')
-          // } else {
-          //   alert('fail')
-          // }
+        }).catch(er => {
+          console.log(er);
         })
-        .catch(er => {
-          console.log("no data sorry ", er);
-        });
+        
       }
     }
 }
@@ -232,6 +298,93 @@ export default {
 @import "../styles/mixins.scss";
 
 .home-page {
+
+  .header {
+    position: absolute;
+    width: 100%;
+    padding-top: 3rem;
+    z-index: 2;
+
+    @include mobile {
+      padding-top: 2rem;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @include mobile {
+        align-items: flex-start;
+      }
+    }
+
+    .logo {
+      padding: .6rem 0;
+    }
+
+    .nav {
+      display: flex;
+
+      @include mobile {
+        display: none;
+      }
+      @include tablet {
+        display: none;
+      }
+
+      &.mobile {
+        display: flex;
+        flex-direction: column;
+        background-color: $color-white;
+        position: absolute;
+        top: -2rem;
+        right: 0;
+        width: 90vw;
+        height: 100vh;
+        z-index: 20;
+        padding: 0 2rem;
+        padding-top: 7rem;
+        align-items: flex-start;
+
+        @include tablet {
+          top: -3rem;
+        }
+      }
+    }
+
+    .button--reg {
+      width: 21.2rem;
+      height: 4.8rem;
+      font-size: 1.8rem;
+      line-height: 2rem;
+      font-weight: 700;
+
+      @include mobile {
+        background-color: $color-blue;
+        color: $color-white;
+        width: 100%;
+      }
+      @include tablet {
+        background-color: $color-blue;
+        color: $color-white;
+        width: 50%;
+      }
+    }
+
+    .button--close {
+      display: block;
+      position: absolute;
+      width: 3rem;
+      height: 3rem;
+      background-image: url('../assets/img/close.svg');
+      background-repeat: no-repeat;
+      top: 2rem;
+      right: 2rem;
+      background-size: contain;
+    }
+  }
+
   .hero {
     width: 100%;
     height: 100vh;
@@ -240,6 +393,44 @@ export default {
     align-items: center;
     flex-direction: column;
     position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      background-image: url('../assets/img/leaf.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 14.8rem;
+      height: 14.8rem;
+      position: absolute;
+      top: 9.8rem;
+      right: 1.6rem;
+      z-index: 0;
+      animation: fadeInScale .5s ease-in-out 1 both;
+
+      @include mobile {
+        display: none;
+      }
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      background-image: url('../assets/img/bubbles.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 38.8rem;
+      height: 16.4rem;
+      position: absolute;
+      bottom: 30rem;
+      right: -1.6rem;
+      z-index: 0;
+      animation: fadeInScale .5s ease-in-out 1 both;
+
+      @include mobile {
+        display: none;
+      }
+    }
 
     @include tablet {
       max-height: 100vw;
@@ -254,7 +445,7 @@ export default {
       flex-direction: column;
       align-items: center;
       z-index: 1;
-      animation: fadeInScale .5s ease-in-out .5s 1 both;;
+      animation: fadeInScale .5s ease-in-out .5s 1 both;
 
       @include mobile {
         width: 100%;
@@ -284,7 +475,6 @@ export default {
         }
       }
     }
-
     .button {
       width: 29.6rem;
       height: 8rem;
@@ -383,10 +573,31 @@ export default {
 
   .prizes {
     padding-top: 10rem;
+    position: relative;
 
     @include mobile {
       padding-top: 5rem;
     }
+
+    &::before {
+      content: '';
+      display: block;
+      background-image: url('../assets/img/el3.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 14.7rem;
+      height: 12.2rem;
+      position: absolute;
+      top: 9rem;
+      left: 19.6rem;
+      z-index: 0;
+      animation: fadeInScale .5s ease-in-out 1 both;
+
+      @include mobile {
+        display: none;
+      }
+    }
+
     .wrapper {
       display: flex;
       flex-direction: column;

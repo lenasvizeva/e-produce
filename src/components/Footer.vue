@@ -67,6 +67,12 @@ export default {
                 color: $color-black;
                 text-transform: uppercase;
                 font-weight: 700;
+                transition: all .4s ease-out;
+                
+                &:hover {
+                    color: $color-blue;
+                    transition: all .4s ease-out;
+                }
             }
         }
     }

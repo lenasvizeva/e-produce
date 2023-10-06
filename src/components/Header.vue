@@ -2,9 +2,9 @@
     <header class="header">
 
         <div class="wrapper">
-            <div class="logo">
+            <a href="#" class="logo">
                 <img src="../assets/img/logo.svg">
-            </div>
+            </a>
 
             <nav class="nav" :class="isMobileMenu ? 'mobile' : ''">
 

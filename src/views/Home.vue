@@ -79,7 +79,7 @@
 
               <label for="name" class="label">ФИО</label>
               <input type="text" v-model="name" name="name" id="name" placeholder="Николаев Дмитрий Сергеевич" required />
-              
+              <p class="error">{{ errors.name[0] }}</p>
 
               <label for="email" class="label">E-mail</label>
               <input type="email" v-model="email" name="email" id="email" placeholder="username@gmail.com" required />
@@ -136,12 +136,18 @@ export default {
     return {
       isModalVisible: false,
       isRegFinish: false,
-      success: false,
-      errors: [],
-      name: null,
+      name: '',
       email: '',
       phone: '',
-      agree: false
+      agree: false,
+      result: false,
+      errors: {
+        name: [],
+        email: [],
+        phone: [],
+        agree: []
+      },
+
     }
   },
   methods: {
@@ -153,29 +159,67 @@ export default {
       this.isModalVisible = false;
     },
 
-    async submitForm() {
+    submitForm() {
       console.log(this.name, this.email, this.agree)
 
-      await axios.post('https://promo-test.emlsdr.ru/backend/api/registerByEmail',
-      { login: this.email, 
+    //   await axios.post('https://promo-test.emlsdr.ru/backend/api/registerByEmail', JSON.stringify({ 
+    //     login: this.email, 
+    //     name: this.name, 
+    //     phone: this.phone, 
+    //     rules1: this.agree
+    //   })).then(response => {
+    //       console.log(JSON.stringify(response.data));
+
+    //       // if (response.status == 201) {
+    //       //   alert('success')
+    //       // } else {
+    //       //   alert('fail')
+    //       // }
+    //   }).catch(er => {
+    //     console.log(JSON.stringify(response.data.error))
+    //   })
+    //   this.email = '',
+    //   this.name = '',
+    //   this.phone = '',
+    //   this.agree = ''
+    // }
+
+      const url = 'https://promo-test.emlsdr.ru/backend/api/registerByEmail'
+
+      let data = {
+        login: this.email, 
         name: this.name, 
         phone: this.phone, 
         rules1: this.agree
-      }).then(response => {
-          console.log(response);
+      }
+      let options = {
+        method: "POST",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        data: JSON.stringify(data),
+        url
+      }
+      axios(options)
+        .then(res => {
+          console.log("yeh we have", res);
 
-          if (response.status == 201) {
-            alert('success')
-          } else {
-            alert('fail')
-          }
-      })
-      // this.email = '',
-      // this.name = '',
-      // this.phone = '',
-      // this.agree = ''
+          // this.errors = res.data.error
+          console.log(res.data.error.name[0])
+
+          this.errors.name.push(res.data.error.name[0])
+
+          console.log(this.errors.name)
+
+          // if (res.status == 201) {
+          //   alert('success')
+          // } else {
+          //   alert('fail')
+          // }
+        })
+        .catch(er => {
+          console.log("no data sorry ", er);
+        });
+      }
     }
-  }
 }
 </script>
 
@@ -210,6 +254,7 @@ export default {
       flex-direction: column;
       align-items: center;
       z-index: 1;
+      animation: fadeInScale .5s ease-in-out .5s 1 both;;
 
       @include mobile {
         width: 100%;
@@ -273,6 +318,7 @@ export default {
         width: auto;
         bottom: 0;
         left: 8vw;
+        animation: slidingUpLeft .7s ease-in-out 1 both;
 
         @include mobile {
           height: 30%;
@@ -291,6 +337,7 @@ export default {
         height: auto;
         bottom: 6.3rem;
         right: 8vw;
+        animation: slidingRight .5s ease-in-out .6s 1 both;
 
         @include mobile {
           width: 33vh;
@@ -312,6 +359,7 @@ export default {
         height: auto;
         top: 12.5rem;
         right: 14vw;
+        animation: slidingRight .5s ease-in-out 1s 1 both;
 
         @include mobile {
           width: 17rem;

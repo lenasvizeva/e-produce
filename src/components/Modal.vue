@@ -145,6 +145,7 @@ export default {
                 font-size: 1.8rem;
                 color: $color-black;
                 margin-bottom: 1.4rem;
+                outline: none;
 
                 @include mobile {
                     height: 4.8rem;
@@ -231,6 +232,12 @@ export default {
             background-image: url('../assets/img/close.svg');
             background-repeat: no-repeat;
             background-size: 100% 100%;
+            transition: all .6s ease-in-out;
+
+            &:hover {
+                transform: scale(1.3);
+                transition: all .6s ease-in-out;
+            }
 
             @include mobile {
                 top: 0;

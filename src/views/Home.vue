@@ -65,7 +65,7 @@
     </div>
 
 
-    <div class="prizes">
+    <div class="prizes" id="prizes">
       <div class="wrapper">
 
         <h2 class="prizes__title h2">Выигрывай призы</h2>

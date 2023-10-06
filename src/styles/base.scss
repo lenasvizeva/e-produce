@@ -9,6 +9,7 @@ html {
     box-sizing: border-box;
     overflow-x: hidden;
     font-family: $base-font-family;
+    scroll-behavior: smooth;
     margin: 0;
     padding: 0;
     font-size: 62.5%;                   // Такое значение font-size используется для удобства конвертации px в rem (62.5% от размера шрифта браузера 16px = 10px),

@@ -6,7 +6,7 @@
 
       <div class="wrapper">
         <a href="#" class="logo">
-            <img src="../assets/img/logo.svg">
+            <img src="../assets/img/logo.svg" alt="logo">
         </a>
 
         <nav class="nav" :class="isMobileMenu ? 'mobile' : ''">
@@ -20,6 +20,7 @@
                     @click="closeMenu"
                     v-show="isMobileMenu">
             </button>
+
         </nav>
 
         <button class="button button--mobile" @click="showMobileMenu">
@@ -42,15 +43,23 @@
 
 
       <div class="promo promo--bottle">
-        <img src="../assets/img/bottle.png" />
+        <picture>
+            <source srcset="../assets/img/bottle_mobile.webp" media="(max-width: 767px)">
+            <source srcset="../assets/img/bottle.webp">
+            <img src="../assets/img/bottle.webp" alt="promo image">
+        </picture>
       </div>
 
       <div class="promo promo--prizes">
-        <img src="../assets/img/super.png" />
+        <picture>
+            <source srcset="../assets/img/super_mobile.webp" media="(max-width: 767px)">
+            <source srcset="../assets/img/super.webp">
+            <img src="../assets/img/super.webp" alt="promo image">
+        </picture>
       </div>
 
       <div class="promo promo--main">
-        <img src="../assets/img/main_price.svg" />
+        <img src="../assets/img/main_price.svg" alt="promo image" />
       </div>
 
     </div>
@@ -179,7 +188,7 @@
       <template v-slot:body>
 
         <div class="modal__icon">
-          <img src="../assets/img/check-circle.svg"  />
+          <img src="../assets/img/check-circle.svg" alt="ok icon" />
         </div>
        
         <span class="modal__title">Ваша регистрация прошла успешно!</span>
@@ -288,8 +297,6 @@ export default {
     }
 }
 </script>
-
-
 
 
 <style lang="scss" scoped>

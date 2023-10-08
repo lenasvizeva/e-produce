@@ -67,6 +67,12 @@ h2, .h2 {
     font-size: 5.2rem;
     line-height: 6rem;
     text-transform: uppercase;
+    margin: 0;
+
+    @include mobile {
+        font-size: 2.8rem;
+        line-height: 1;   
+    }
 }
 
 h3, .h3 {

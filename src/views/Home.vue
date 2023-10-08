@@ -150,7 +150,8 @@
                        name="phone" 
                        id="phone"
                        :class="errors.phone ? 'invalid' : ''" 
-                       placeholder="+7" 
+                       placeholder="+7"
+                       pattern="^\+7[1-9]{10}$"
                        required />
                 
                        <p class="error" v-for="err in errors.phone" :key="err">{{ err }}</p>
@@ -168,9 +169,12 @@
                 <span class="checkmark"></span>
                 <label for="agree" class="label">Я согласен с <a href="#">правилами акции</a>, 
                                                               <a href="#">пользовательским соглашением</a> и с 
-                                                              <a href="#">положением о конфиденциальности</a></label>         
+                                                              <a href="#">положением о конфиденциальности</a>
+                                                            
+                      <p class="error" v-for="err in errors.agree" :key="err">{{ err }}</p>                                            
+                </label>         
                 
-                <p class="error" v-for="err in errors.agree" :key="err">{{ err }}</p>
+                
               </div>
               
 
@@ -254,8 +258,7 @@ export default {
     },
 
     
-    submitForm() {
-      console.log(this.name, this.email, this.agree)
+    async submitForm() {
 
       const url = 'https://promo-test.emlsdr.ru/backend/api/registerByEmail'
 
@@ -271,14 +274,15 @@ export default {
         data: data,
         url
       }
-      axios(options)
+      await axios(options)
         .then(res => {
           
           if (res.data.result) {
             this.isRegFinish = true
+            // Object.keys(this.errors).forEach(k => delete this.errors[k])
+            
+            console.log(this.errors)
           } 
-
-          console.log(res);
           
           localStorage.setItem('username', JSON.stringify(res.data))
 
@@ -620,12 +624,6 @@ export default {
           margin-top: 2rem;
         }
       }
-    }
-
-    &__title {
-      font-size: 2.8rem;
-      line-height: 1;
-      margin: 0;
     }
 
     .two-column {

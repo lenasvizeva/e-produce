@@ -45,15 +45,15 @@ export default {
     z-index: 10;
 
     @include mobile {
-        align-items: end;
+        // align-items: end;
     }
 }
 
 .modal {
-    max-width: 58rem;
+    width: 58rem;
+    max-width: 60rem;
     background: $color-yellow;
     box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,11 +61,14 @@ export default {
     padding: 4rem 3.5rem;
     border-radius: 36px;
     position: relative;
+    overflow-y: auto;
 
     @include mobile {
         width: 100%;
         padding: 4rem 2rem;
-        border-radius: 14px 14px 0 0;
+    }
+
+    @include tablet {
     }
    
     &__body {
@@ -104,14 +107,18 @@ export default {
     }
 
     .form {
-        width: 40rem;
+        width: 51rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 0 5.5rem;
+        overflow-y: auto;
 
         @include mobile {
             width: 100%;
+            padding: 0
+            ;
         }
 
         &__fieldset {
@@ -119,7 +126,8 @@ export default {
             flex-direction: column;
             
             .label {
-                margin-bottom: 1.4rem;
+                margin-bottom: 1vh;
+                font-size: 1.8rem;
 
                 @include mobile {
                     font-size: 1.4rem;
@@ -132,13 +140,14 @@ export default {
                 background-color: $color-white;
                 border: 2px solid $color-blue;
                 border-radius: 14px;
-                height: 6rem;
+                height: 6.2vh;
+                max-height: 6rem;
+                margin-top: 1vh;
                 padding: 1.6rem 6.4rem 1.6rem 2rem;
                 display: flex;
                 align-items: center;
                 font-size: 1.8rem;
                 color: $color-black;
-                margin-top: 1rem;
                 outline: none;
                 font-family: 'Circe', sans-serif;
 
@@ -208,7 +217,7 @@ export default {
                     margin-bottom: 0;
                     
                     @include mobile {
-                        max-width: 31rem;
+                        max-width: 28rem;
                     }
 
                     a {
@@ -226,11 +235,12 @@ export default {
     }
 
     .button {
-        height: 6rem;
+        height: 6.2vh;
+        max-height: 6rem;
         width: 100%;
         max-width: 40rem;
         font-size: 2.4rem;
-        margin-top: 2rem;
+        margin-top: 2.1vh;
         line-height: 2rem;
         font-weight: 700;
 
@@ -258,7 +268,7 @@ export default {
         }
 
         &--submit {
-            margin: 2rem 0;
+            margin: 2.1vh 0;
 
             @include mobile {
                 height: 4.8rem;
@@ -269,7 +279,7 @@ export default {
     }
 
     p {
-        font-size: 2.4rem;
+        font-size: 1.8rem;
         line-height: 3.2rem;
         text-align: center;
         margin: 0;

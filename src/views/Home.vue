@@ -120,67 +120,74 @@
 
           <div class="form__fieldset">
 
-              <label for="name" class="label">ФИО
-                <input type="text" 
-                       v-model="name" 
-                       name="name" 
-                       id="name" 
-                       :class="errors.name ? 'invalid' : ''" 
-                       placeholder="Николаев Дмитрий Сергеевич" 
-                       required />
-
-                <p class="error" v-for="err in errors.name" :key="err">{{ err }}</p>
-              </label>
+            <label for="name" class="label">ФИО</label>
+            
+            <input type="text" 
+                    v-model="userData.name.value" 
+                    name="name" 
+                    id="name" 
+                    :class="userData.name.error ? 'invalid' : ''" 
+                    placeholder="Николаев Дмитрий Сергеевич" 
+                    @focus="userData.name.error = ''"
+                    @blur="onBlur"
+                    required />
+            
+            <p v-show="userData.name.error" class="error">{{ `${userData.name.error}` }}</p>
+            
+          
+            <label for="email" class="label">E-mail</label>
+            <input type="email" 
+                    v-model="userData.email.value" 
+                    name="email" 
+                    id="email"
+                    :class="userData.email.error ? 'invalid' : ''" 
+                    placeholder="username@gmail.com"
+                    @blur="onBlur"
+                    @focus="userData.email.error = ''"
+                    required />
+            
+            <p v-show="userData.email.error" class="error">{{ `${userData.email.error}` }}</p>
+          
              
-              <label for="email" class="label">E-mail
-                <input type="email" 
-                       v-model="email" 
-                       name="email" 
-                       id="email"
-                       :class="errors.email ? 'invalid' : ''" 
-                       placeholder="username@gmail.com" 
-                       required />
-                
-                       <p class="error" v-for="err in errors.email" :key="err">{{ err }}</p>
-              </label>
-             
-              <label for="phone" class="label">Телефон
-                <input type="tel" 
-                       v-model="phone" 
-                       name="phone" 
-                       id="phone"
-                       :class="errors.phone ? 'invalid' : ''" 
-                       placeholder="+7"
-                       pattern="^\+7[1-9]{10}$"
-                       required />
-                
-                       <p class="error" v-for="err in errors.phone" :key="err">{{ err }}</p>
-              </label>
+            <label for="phone" class="label">Телефон</label>
+            <input type="tel" 
+                    v-model="userData.phone.value" 
+                    name="phone" 
+                    id="phone"
+                    :class="userData.phone.error ? 'invalid' : ''" 
+                    placeholder="+7"
+                    @focus="userData.phone.error = ''"
+                    @blur="onBlur"
+                    required />
+            
+            <p v-show="userData.phone.error" class="error">{{ `${userData.phone.error}` }}</p>
+            
+            
+            <div class="agreement">
+              <input type="checkbox" 
+                      v-model="userData.agree.value" 
+                      id="agree" 
+                      name="agree" 
+                      class="checkbox" 
+                      :class="userData.agree.error ? 'invalid' : ''"
+                      @focus="userData.agree.error = ''"
+                      @blur="onBlur" 
+                      required>
+
+              <span class="checkmark"></span>
+              <label for="agree" class="label">Я согласен с <a href="#">правилами акции</a>, 
+                                                            <a href="#">пользовательским соглашением</a> и с 
+                                                            <a href="#">положением о конфиденциальности</a>
+                                                          
+                    <p v-show="userData.agree.error" class="error">{{ `${userData.agree.error}` }}</p>                                            
+              </label>          
               
-              <div class="agreement">
-                <input type="checkbox" 
-                       v-model="agree" 
-                       id="agree" 
-                       name="agree" 
-                       class="checkbox" 
-                       :class="errors.agree ? 'invalid' : ''" 
-                       required>
-
-                <span class="checkmark"></span>
-                <label for="agree" class="label">Я согласен с <a href="#">правилами акции</a>, 
-                                                              <a href="#">пользовательским соглашением</a> и с 
-                                                              <a href="#">положением о конфиденциальности</a>
-                                                            
-                      <p class="error" v-for="err in errors.agree" :key="err">{{ err }}</p>                                            
-                </label>         
-                
-                
-              </div>
               
+            </div>
 
-              <button type="submit" class="button button--blue button--submit">Зарегистрироваться</button>
+            <button type="submit" class="button button--blue button--submit">Зарегистрироваться</button>
 
-              <p>Есть аккаунт? <span>Авторизуйся</span></p>
+            <p>Есть аккаунт? <span>Авторизуйся</span></p>
           </div>
         </form>
 
@@ -197,7 +204,7 @@
        
         <span class="modal__title">Ваша регистрация прошла успешно!</span>
 
-        <p>Добро пожаловать, {{ name }}!</p>
+        <p>Добро пожаловать, {{ userData.name.value }}!</p>
 
         <button class="button button--blue button--submit" @click="closeModal">Закрыть окно</button>
 
@@ -224,17 +231,25 @@ export default {
       isMobileMenu: false,
       isModalVisible: false,
       isRegFinish: false,
-      name: '',
-      email: '',
-      phone: '',
-      agree: false,
-      result: false,
-      errors: {
-        name: '',
-        email: '',
-        phone: '',
-        agree: ''
+      userData: {
+        name: {
+          value: '',
+          error: ''
+        },
+        email: {
+          value: '',
+          error: ''
+        },
+        phone: {
+          value: '',
+          error: ''
+        },
+        agree: {
+          value: false,
+          error: ''
+        }
       },
+      result: false
     }
   },
   methods: {
@@ -251,22 +266,37 @@ export default {
       this.isModalVisible = false
       this.isRegFinish = false
 
-      this.email = '',
-      this.name = '',
-      this.phone = '',
-      this.agree = ''
+     
+      this.userData.email.value = '',
+      this.userData.name.value = '',
+      this.userData.phone.value = '',
+      this.userData.agree.value = ''
+
+      this.resetErrors()
+    },
+    resetErrors() {
+      this.userData.email.error = ''
+      this.userData.name.error = ''
+      this.userData.phone.error = ''
+      this.userData.agree.error = ''
     },
 
+    onBlur(e) {
+      let fieldValue = e.target.value;
+      if (!fieldValue) {
+        e.target.classList.add('invalid')
+      }
+    }, 
     
     async submitForm() {
 
       const url = 'https://promo-test.emlsdr.ru/backend/api/registerByEmail'
 
       let data = {
-        login: this.email, 
-        name: this.name, 
-        phone: this.phone, 
-        rules1: this.agree
+        login: this.userData.email.value, 
+        name: this.userData.name.value, 
+        phone: this.userData.phone.value, 
+        rules1: this.userData.agree.value,
       }
       let options = {
         method: "POST",
@@ -279,19 +309,16 @@ export default {
           
           if (res.data.result) {
             this.isRegFinish = true
-            // Object.keys(this.errors).forEach(k => delete this.errors[k])
             
-            console.log(this.errors)
+            this.resetErrors()
           } 
           
-          localStorage.setItem('username', JSON.stringify(res.data))
-
           let { login, name, phone, rules1 } = res.data.error
 
-          this.errors.email = login
-          this.errors.name = name
-          this.errors.phone = phone
-          this.errors.agree = rules1
+          this.userData.email.error = login
+          this.userData.name.error = name
+          this.userData.phone.error = phone
+          this.userData.agree.error = rules1
 
         }).catch(er => {
           console.log(er);

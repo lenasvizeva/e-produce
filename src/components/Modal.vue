@@ -43,6 +43,11 @@ export default {
     justify-content: center;
     align-items: center;
     z-index: 10;
+    overflow-y: auto;
+
+    ::-webkit-scrollbar {
+        opacity: 0;
+    }
 
     @include mobile {
         // align-items: end;
@@ -126,7 +131,7 @@ export default {
             flex-direction: column;
             
             .label {
-                margin-bottom: 1vh;
+                // margin-top: .4vh;
                 font-size: 1.8rem;
 
                 @include mobile {
@@ -142,7 +147,7 @@ export default {
                 border-radius: 14px;
                 height: 6.2vh;
                 max-height: 6rem;
-                margin-top: 1vh;
+                margin: 1vh 0;
                 padding: 1.6rem 6.4rem 1.6rem 2rem;
                 display: flex;
                 align-items: center;

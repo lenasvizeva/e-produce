@@ -23,6 +23,8 @@
 
         </nav>
 
+        <div class="overlay" v-show="isMobileMenu"></div>
+
         <button class="button button--mobile" @click="showMobileMenu">
             <img src="../assets/img/burger.svg" alt="mobile menu button" />
         </button>  
@@ -255,18 +257,20 @@ export default {
   methods: {
     showMobileMenu() {
       this.isMobileMenu = true
+      document.getElementById('body').classList.add('fixed')
     },
     closeMenu() {
       this.isMobileMenu = false
     },
     showModal() {
       this.isModalVisible = true;
+
+      document.getElementById('body').classList.add('fixed')
     },
     closeModal() {
       this.isModalVisible = false
       this.isRegFinish = false
 
-     
       this.userData.email.value = '',
       this.userData.name.value = '',
       this.userData.phone.value = '',
@@ -384,6 +388,28 @@ export default {
         padding: 0 2rem;
         padding-top: 7rem;
         align-items: flex-start;
+
+        &::after {
+          content: '';
+          display: block;
+          background-image: url('../assets/img/leaf2.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 20.2rem;
+          height: 30.3rem;
+          position: absolute;
+          bottom: 2vw;
+          right: 0;
+          z-index: 0;
+          animation: fadeInScale .5s ease-in-out 1 both;
+
+          @include tablet {
+            width: 30vw;
+            height: 50vw;
+            bottom: 6vw;
+          }
+
+        }
 
         @include tablet {
           top: -3rem;

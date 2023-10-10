@@ -6,7 +6,6 @@
 
             <slot name="body" class="modal__body"></slot>
     
-           
         </div>
     </div>
 </template>
@@ -47,10 +46,6 @@ export default {
 
     ::-webkit-scrollbar {
         opacity: 0;
-    }
-
-    @include mobile {
-        // align-items: end;
     }
 }
 

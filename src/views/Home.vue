@@ -179,10 +179,9 @@
               <span class="checkmark"></span>
               <label for="agree" class="label">Я согласен с <a href="#">правилами акции</a>, 
                                                             <a href="#">пользовательским соглашением</a> и с 
-                                                            <a href="#">положением о конфиденциальности</a>
-                                                          
-                    <p v-show="userData.agree.error" class="error">{{ `${userData.agree.error}` }}</p>                                            
-              </label>          
+                                                            <a href="#">положением о конфиденциальности</a>                                         
+              </label>
+              <p v-show="userData.agree.error" class="error">{{ `${userData.agree.error}` }}</p>   
               
               
             </div>
@@ -261,9 +260,10 @@ export default {
     },
     closeMenu() {
       this.isMobileMenu = false
+      document.getElementById('body').classList.remove('fixed')
     },
     showModal() {
-      this.isModalVisible = true;
+      this.isModalVisible = true
 
       document.getElementById('body').classList.add('fixed')
     },
@@ -277,6 +277,8 @@ export default {
       this.userData.agree.value = ''
 
       this.resetErrors()
+
+      document.getElementById('body').classList.remove('fixed')
     },
     resetErrors() {
       this.userData.email.error = ''

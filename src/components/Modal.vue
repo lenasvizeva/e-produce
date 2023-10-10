@@ -50,8 +50,9 @@ export default {
 }
 
 .modal {
-    width: 58rem;
-    max-width: 60rem;
+    // width: 58rem;
+    width: 32.2083333vw;
+    // max-width: 60rem;
     background: $color-yellow;
     box-shadow: 2px 2px 20px 1px;
     display: flex;
@@ -61,7 +62,9 @@ export default {
     padding: 4rem 3.5rem;
     border-radius: 36px;
     position: relative;
-    overflow-y: auto;
+    // overflow-y: auto;
+    min-height: 32vw;
+    max-height: 100vh;
 
     @include mobile {
         width: 100%;
@@ -76,7 +79,8 @@ export default {
     }
 
     &__title {
-        font-size: 4.4rem;
+        // font-size: 4.4rem;
+        font-size: 2.3vw;
         line-height: 5rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -107,18 +111,20 @@ export default {
     }
 
     .form {
-        width: 51rem;
+        // width: 51rem;
+        width: 26.5625vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 0 5.5rem;
-        overflow-y: auto;
+        padding: 0 15.517%;
+        // padding: 0 5.5rem;
+        // overflow-y: auto;
+        max-height: 100vh;
 
         @include mobile {
             width: 100%;
-            padding: 0
-            ;
+            padding: 0;
         }
 
         &__fieldset {
@@ -126,8 +132,8 @@ export default {
             flex-direction: column;
             
             .label {
-                // margin-top: .4vh;
-                font-size: 1.8rem;
+                // font-size: 1.8rem;
+                font-size: 1.9vh;
 
                 @include mobile {
                     font-size: 1.4rem;
@@ -146,7 +152,8 @@ export default {
                 padding: 1.6rem 6.4rem 1.6rem 2rem;
                 display: flex;
                 align-items: center;
-                font-size: 1.8rem;
+                // font-size: 1.8rem;
+                font-size: 2vh;
                 color: $color-black;
                 outline: none;
                 font-family: 'Circe', sans-serif;
@@ -160,6 +167,7 @@ export default {
                 &::placeholder {
                     color: #444444;
                     font-family: 'Circe', sans-serif;
+                    
                 }
 
                 &.invalid {
@@ -213,8 +221,12 @@ export default {
                 }
 
                 .label {
-                    max-width: 32.2rem;
+                    // max-width: 32.2rem;
+                    // margin-bottom: 0;
+                    max-width: 15vw;
                     margin-bottom: 0;
+                    // font-size: 1.4rem;
+                    font-size: 1.9vh;
                     
                     @include mobile {
                         max-width: 28rem;
@@ -239,7 +251,8 @@ export default {
         max-height: 6rem;
         width: 100%;
         max-width: 40rem;
-        font-size: 2.4rem;
+        // font-size: 2.4rem;
+        font-size: 2.5vh;
         margin-top: 2.1vh;
         line-height: 2rem;
         font-weight: 700;
@@ -279,7 +292,8 @@ export default {
     }
 
     p {
-        font-size: 1.8rem;
+        // font-size: 1.8rem;
+        font-size: 2.5vh;
         line-height: 3.2rem;
         text-align: center;
         margin: 0;

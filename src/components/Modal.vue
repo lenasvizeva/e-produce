@@ -50,8 +50,8 @@ export default {
 }
 
 .modal {
-    // width: 58rem;
-    width: 32.2083333vw;
+    width: calc(30vw * 1.2);
+    max-width: 30.2083333vw;
     // max-width: 60rem;
     background: $color-yellow;
     box-shadow: 2px 2px 20px 1px;
@@ -72,6 +72,8 @@ export default {
     }
 
     @include tablet {
+        width: 58rem;
+        max-width: 100%;
     }
    
     &__body {
@@ -79,7 +81,6 @@ export default {
     }
 
     &__title {
-        // font-size: 4.4rem;
         font-size: 2.3vw;
         line-height: 5rem;
         font-weight: 700;
@@ -90,6 +91,10 @@ export default {
         @include mobile {
             font-size: 2.8rem;
             line-height: 1;
+        }
+
+        @include tablet {
+            font-size: 4.4rem;
         }
     }
 
@@ -111,14 +116,13 @@ export default {
     }
 
     .form {
-        // width: 51rem;
-        width: 26.5625vw;
+        width: calc(28vw * 1.2);
+        max-width: 26.5625vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 0 15.517%;
-        // padding: 0 5.5rem;
         // overflow-y: auto;
         max-height: 100vh;
 
@@ -127,17 +131,26 @@ export default {
             padding: 0;
         }
 
+        @include tablet {
+            width: 51rem;
+            max-width: 100%;
+            padding: 0 5.5rem;
+        }
+
         &__fieldset {
             display: flex;
             flex-direction: column;
             
             .label {
-                // font-size: 1.8rem;
                 font-size: 1.9vh;
 
                 @include mobile {
                     font-size: 1.4rem;
                     font-weight: bold;
+                }
+
+                @include tablet {
+                    font-size: 1.8rem;
                 }
             }
 
@@ -149,7 +162,7 @@ export default {
                 height: 6.2vh;
                 max-height: 6rem;
                 margin: 1vh 0;
-                padding: 1.6rem 6.4rem 1.6rem 2rem;
+                padding: 1.6rem 2rem 1.6rem 2rem;
                 display: flex;
                 align-items: center;
                 // font-size: 1.8rem;
@@ -162,6 +175,9 @@ export default {
                     height: 4.8rem;
                     border-radius: .8rem;
                     padding: 1.5rem .7rem 1.5rem 1.2rem;
+                }
+                @include tablet {
+                    font-size: 1.8rem;
                 }
 
                 &::placeholder {
@@ -188,6 +204,7 @@ export default {
             .agreement {
                 display: flex;
                 flex-flow: wrap;
+                justify-content: space-between;
 
                 .checkbox {
                     width: 2.4rem;
@@ -221,15 +238,18 @@ export default {
                 }
 
                 .label {
-                    // max-width: 32.2rem;
                     // margin-bottom: 0;
-                    max-width: 15vw;
+                    max-width: 85%;
                     margin-bottom: 0;
                     // font-size: 1.4rem;
                     font-size: 1.9vh;
                     
                     @include mobile {
                         max-width: 28rem;
+                    }
+                    @include tablet {
+                        max-width: 32.2rem;
+                        font-size: 1.8rem;
                     }
 
                     a {
@@ -251,7 +271,6 @@ export default {
         max-height: 6rem;
         width: 100%;
         max-width: 40rem;
-        // font-size: 2.4rem;
         font-size: 2.5vh;
         margin-top: 2.1vh;
         line-height: 2rem;
@@ -288,11 +307,13 @@ export default {
                 border-radius: .8rem;
                 font-size: 1.8rem;
             }
+            @include tablet {
+                font-size: 2.4rem;
+            }
         }
     }
 
     p {
-        // font-size: 1.8rem;
         font-size: 2.5vh;
         line-height: 3.2rem;
         text-align: center;
@@ -301,6 +322,9 @@ export default {
         @include mobile {
             font-size: 1.6rem;
             font-weight: 400;
+        }
+        @include tablet {
+            font-size: 1.8rem;
         }
 
         span {

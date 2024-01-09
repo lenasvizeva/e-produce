@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --mode development",
     "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
-  "homepage": "https://github.com/lenasvizeva/e-produce",
+  "homepage": "git@github.com:lenasvizeva/e-produce.git",
   "keywords": [],
   "author": "",
   "license": "ISC",

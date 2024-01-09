@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
+  "homepage": "https://lenasvizeva.github.io/e-produce/",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -32,6 +34,7 @@
     "sass": "^1.26.10",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
+    "vue-gh-pages": "^1.19.1",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12",
     "webpack": "^4.44.1",
